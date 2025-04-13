@@ -1,15 +1,17 @@
 # Description
 
-Crash Course for <a name="k8s">Kubernetes</a>. This course assumes you have Docker installed, but you can also add it via Devbox, if not.
+Crash Course for <a name="k8s">Kubernetes</a> (K8s). This course assumes you have Docker installed, but you can also add it via Devbox if not.
 
 # Setup
 
 ## Windows-only
 
-Because of the differences with the shell and difficulty in setting up some of the packages used, it is probably wise to use <a name="wsl">WSL</a>.
+Because of the differences with the shell and difficulty in setting up some of the packages used, it is probably wise to use <a name="wsl">Windows Subsystem for Linux</a> (WSL).
 Install via `wsl --install [-d <DistroName>]`, *e.g.* 
 
 `wsl --install -d Ubuntu`
+
+Ubuntu comes with Docker out-of-the box.
 
 ## Devbox
 
@@ -41,7 +43,7 @@ To exit the Devbox shell, run
 
 ## Managing a Cluster
 
-The most common way for interfacing with a K8s is `kubectl`. In order to talk to this cluster, we first need a cluster. For our simple tests, we will use a virtual K8s cluster within a Docker container. There are several tools for this available:
+The most common way for interfacing with a cluster is `kubectl`. In order to talk to this cluster, we first need a cluster. For our simple tests, we will use a virtual K8s cluster within a Docker container. There are several tools for this available:
 
 1. <a name="minikube">`minikube`</a>
 1. <a name="kind">`kind`</a>
@@ -69,7 +71,7 @@ to update your shell.
 
 1. Set up your K8s cluster
 1. Apply the manifest `example-pod.yaml` and see the changes in the cluster.
-1. ???
+1. Try to set up a server for the game of your choice, *e.g.* Minecraft, Factorio,...
 
 # Part 2
 
@@ -77,11 +79,10 @@ Switch to branch `helm` and read the `README.md`.
 
 # References
 
-<sup>[1](#k8s)</sup> https://kubernetes.io/, abbreviated 'K8s' (leaving out the 8 letters inbetween)
+<sup>[1](#k8s)</sup> https://kubernetes.io/, abbreviated 'K8s' by leaving out the 8 letters inbetween
 
-<sup>[2](#test)</sup> Windows Subsystem for Linux, https://learn.microsoft.com/en-us/windows/wsl/
+<sup>[2](#wsl)</sup> https://learn.microsoft.com/en-us/windows/wsl/
 
 <sup>[3](#devbox)</sup> https://github.com/jetify-com/devbox
 
 <sup>[4](#k3s)</sup> https://k3s.io/, a lightweight form of K8s. The 3 stands for uhm uh uhm the uhm the – huh
-
