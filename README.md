@@ -1,6 +1,6 @@
 # Description
 
-Crash Course for <a name="k8s">Kubernetes</a> (K8s). This course assumes you have Docker installed, but you can also add it via Devbox if not.
+Crash Course for <a name="k8s">Kubernetes</a> (K8s). This course assumes you have <a name="docker">Docker</a> installed, but you can also add it via Devbox if not.
 
 # Setup
 
@@ -59,7 +59,7 @@ K8s uses a declarative approach, meaning you tell it want you want to have (a Ma
 
 Simply run
 
-`devbox add kubectl minikube`
+`devbox add kubectl minikube helm`
 
 Then 
 
@@ -70,8 +70,10 @@ to update your shell.
 # Instructions
 
 1. Set up your K8s cluster
+1. Run `devbox run launch_dashboard` and open https://localhost:8443
 1. Apply the manifest `example-pod.yaml` and see the changes in the cluster.
-1. Try to set up a server for the game of your choice, *e.g.* Minecraft, Factorio,...
+1. Play around with Deployments, (replicas of) Pods, Jobs,...
+1. Maybe try to set up a server for the game of your choice, *e.g.* Minecraft, Factorio,...
 
 # Part 2
 
@@ -79,10 +81,20 @@ Switch to branch `helm` and read the `README.md`.
 
 # References
 
-<sup>[1](#k8s)</sup> https://kubernetes.io/, abbreviated 'K8s' by leaving out the 8 letters inbetween
+<sup>[1](#k8s)</sup> https://kubernetes.io, abbreviated 'K8s' by leaving out the 8 letters inbetween
 
-<sup>[2](#wsl)</sup> https://learn.microsoft.com/en-us/windows/wsl/
+<sup>[2](#docker)</sup> https://www.docker.com
 
-<sup>[3](#devbox)</sup> https://github.com/jetify-com/devbox
+<sup>[3](#wsl)</sup> https://learn.microsoft.com/en-us/windows/wsl
 
-<sup>[4](#k3s)</sup> https://k3s.io/, a lightweight form of K8s. The 3 stands for uhm uh uhm the uhm the – huh
+<sup>[4](#devbox)</sup> https://github.com/jetify-com/devbox
+
+<sup>[5](#minikube)</sup> https://minikube.sigs.k8s.io
+
+<sup>[6](#kind)</sup> https://kind.sigs.k8s.io
+
+<sup>[7](#k3d)</sup> https://k3d.io
+
+<sup>[8](#k3s)</sup> https://k3s.io/, a lightweight form of K8s. The 3 stands for uhm uh uhm the uhm the – huh
+
+<sup>[9](#k0s)</sup> https://k0sproject.io

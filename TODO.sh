@@ -1,6 +1,8 @@
-# TODO: add references to clusters
-# TODO: add `example-pod.yaml`
-# TODO? use OpenLENS?
+# TODO: slide: 'about the presenter'
+# TODO: match example YAMLs
+# TODO: slide: Ingress, PV(C)
+
 # TODO: add more instructions
 
 # TODO: create branch `helm`
+
