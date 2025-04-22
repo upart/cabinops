@@ -143,9 +143,52 @@ To uninstall a Release, use
 
 
 
-# Part 3
+# Part 3: GitOps and Terraform
 
-TODO
+If we are not careful, our settings can end up all over the place:
+
+- in `values.yaml` files in our repo
+- tracked by Helm, when using `--set` for testing
+- behind hyperscaler (GCP, AWS, Azure) CLIs or GUIs
+
+This includes our cluster settings, referred to as **infrastructure**, *e.g* how many Nodes, how powerful, where our secrets are saved, how backups work, as well as the Charts and Deployments running on that cluster.
+
+## GitOps
+
+GitOps is this simple idea: at any point in time, the (desired) state of our cluster is described fully by a Git repo. Any changes to it are always tracked.
+
+One often used tool for GitOps is <a name="terraform">Terraform</a>.
+
+## Terraform
+
+Terraform is designed for *infrastructure-as-code*, allowing us to define components of the cluster without having to interact with a GUI, or a highly specific API. Instead, we work with Terraform **Provider**s, which abstract away a lot of the intricacies of the API, while also allowing us to make use of GitOps principles.
+
+Terraform will scan the current directory for any `.tf`-files and try to apply them. It is common to name the one listing the Providers `main.tf`. For an example, check out `examples/example-main.tf`.
+
+Initialize the project by running
+
+`terraform init`
+
+which will download all Providers required.
+
+Apply the current configuration by running
+
+`terraform apply`
+
+Terraform will determine what it will change, called the 'execution plan'. If you agree with these changes, enter 'yes'.
+
+This is the common GitOps workflow when working with Terraform -- calling `terraform init && terraform apply` over and over. While there is a specific command to remove our infrastructure, `terraform destroy`, in a fully GitOps Repo, this will remove everything. Instead, I recommend removing `.tf`-files from your repo and `apply` again.
+
+
+
+## Exercise 3
+
+1. Use the `helm` Provider to install your previous Charts using the GitOps approach
+1. Remove everything, including your cluster. Everything.
+1. Install it again using Terraform. If you GitOps'ed correctly, it should unfold on its own. Marvel at it.
+
+
+
 
 # References
 
@@ -172,3 +215,5 @@ TODO
 <sup>[10](#prometheus)</sup> https://prometheus.io
 
 <sup>[10](#grafana)</sup> https://grafana.com
+
+<sup>[10](#terraform)</sup> https://developer.hashicorp.com/terraform
