@@ -76,7 +76,11 @@ to update your shell.
 
 # Part 2
 
-Switch to branch `helm` and read the `README.md`.
+TODO
+
+# Part 3
+
+TODO
 
 # References
 
