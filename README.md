@@ -59,7 +59,7 @@ K8s uses a declarative approach, meaning you tell it want you want to have (a Ma
 
 Simply run
 
-`devbox add kubectl minikube helm`
+`devbox add kubectl minikube`
 
 Then 
 
@@ -70,7 +70,6 @@ to update your shell.
 # Instructions
 
 1. Set up your K8s cluster
-1. Run `devbox run launch_dashboard` and open https://localhost:8443
 1. Apply the manifest `example-pod.yaml` and see the changes in the cluster.
 1. Play around with Deployments, (replicas of) Pods, Jobs,...
 1. Maybe try to set up a server for the game of your choice, *e.g.* Minecraft, Factorio,...
