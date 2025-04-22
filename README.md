@@ -35,11 +35,21 @@ This creates a pretty self-explanatory `devbox.json`. To enable your new shell, 
 
 To install packages, run
 
-`devbox add <package-name>`.
+`devbox add <package-name>`
+
+and
+
+`refresh`
+
+to update the shell.
 
 To exit the Devbox shell, run
 
 `exit`
+
+
+
+# Part 1: Basics of K8s
 
 ## Managing a Cluster
 
@@ -55,28 +65,83 @@ In this course, we will assume you are using `minikube`. If you already used any
 
 K8s uses a declarative approach, meaning you tell it want you want to have (a Manifest), not what you want it to do. The Operator then tries its best to fulfill your requirements. Manifests are written in YAML (or JSON). See `example-pod.yaml` for an example.
 
-## Installing our Packages
-
-Simply run
-
-`devbox add kubectl minikube`
-
-Then 
-
-`refresh`
-
-to update your shell.
-
-# Instructions
+## Exercise 1
 
 1. Set up your K8s cluster
 1. Apply the manifest `example-pod.yaml` and see the changes in the cluster.
 1. Play around with Deployments, (replicas of) Pods, Jobs,...
 1. Maybe try to set up a server for the game of your choice, *e.g.* Minecraft, Factorio,...
 
-# Part 2
 
-TODO
+
+# Part 2: Helm and Helm Charts
+
+When installing someone else's app, instead of having to rely on order-of-operations and deploying Namespace, then CRDs, then some Deployment,... all of which could be changing at any time, we usually install using <a name="helm">Helm</a> instead.
+
+Helm manages packages called 'Helm Charts'. These are stored in Repositories (like anything else) and have a very specific structure:
+
+- `Chart.yaml`: Metadata about the Chart, like name, version, creators,...
+- `values.yaml`: Variables for tuning of the Chart, or its Dependency Charts.
+- `charts/`: A directory containing dependency Helm Charts needed for installing the Chart
+- `templates/`: A folder containing YAMLs templated using Govaluate-style templating, *i.e.* `{{ govaluate.style.templating }}`
+
+## Installing a Helm Chart
+
+Check if the repo is present in the repo list
+
+`helm repo list`
+
+If not, add the repo to Helm using
+
+`helm repo add <repo-name> <repo-url>`
+
+*e.g.*
+
+`helm repo add bitnami https://charts.bitnami.com/bitnami`
+
+If the repo was already present, update using
+
+`helm repo update`
+
+Install the Chart via
+
+`helm install <repo-name>/<chart-name>`
+
+An installed Chart is referred to as a Release. We can change the default settings with a `values.yaml` of our own, or by supplying the `--set` flag:
+
+`helm install <repo-name>/<chart-name> -f values.yaml`
+
+or
+
+`helm install <repo-name>/<chart-name> --set <parameter=value>`
+
+## More Features
+
+Helm can upgrade a Release by either changing the values supplied
+
+`helm upgrade <repo-name>/<chart-name> -f values.yaml`
+
+or by just using a newer version
+
+```
+helm repo update
+helm upgrade <repo-name>/<chart-name>
+```
+(assuming default settings)
+
+To uninstall a Release, use
+
+`helm uninstall <release-name>`
+
+## Exercise 2
+
+1. Install `helm`
+1. Add the <a name="prometheus">Prometheus</a> Helm Repo to Helm
+1. Deploy Prometheus on your cluster using Helm
+1. Do the same with <a name="grafana">Grafana</a>, and add Prometheus as a data source
+1. (optional) Experiment with some other Charts, *e.g.* Databases, Telemetry, GUI,...
+
+
 
 # Part 3
 
@@ -101,3 +166,9 @@ TODO
 <sup>[8](#k3s)</sup> https://k3s.io/, a lightweight form of K8s. The 3 stands for uhm uh uhm the uhm the – huh
 
 <sup>[9](#k0s)</sup> https://k0sproject.io
+
+<sup>[10](#helm)</sup> https://helm.sh
+
+<sup>[10](#prometheus)</sup> https://prometheus.io
+
+<sup>[10](#grafana)</sup> https://grafana.com
