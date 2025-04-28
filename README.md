@@ -15,7 +15,7 @@ Ubuntu comes with Docker out-of-the box.
 
 ## Devbox
 
-<a name="devbox">Devbox</a> allows us to create virtual shells with a `nix`-based package manager. This ensures we are on (almost) the same environment. It also allows us to install all dependencies with a single command, instead of searching online how to install them. Finallly, we can create tasks, *i.e.* scripts that are manually run often, *e.g.* training scripts.
+<a name="devbox">Devbox</a> allows us to create virtual shells with a `nix`-based package manager "nixpkgs". This ensures we are on (almost) the same environment. It also allows us to install all dependencies with a single command, instead of searching online how to install them. Finallly, we can create tasks, *i.e.* scripts that are manually run often, *e.g.* training scripts.
 
 ### Devbox Installation (Linux, MacOS)
 
@@ -64,6 +64,8 @@ The most common way for interfacing with a cluster is `kubectl`. In order to tal
 In this course, we will assume you are using `minikube`. If you already used any of them, try another one! Be careful with K3s and K0s, they might come with different Operators or Controllers, requiring more changes to your setup.
 
 K8s uses a declarative approach, meaning you tell it want you want to have (a Manifest), not what you want it to do. The Operator then tries its best to fulfill your requirements. Manifests are written in YAML (or JSON). See `example-pod.yaml` for an example.
+
+Because it is quite a lot to digest both the infrastructural components of K8s as well as the CLI at once, I suggest using a GUI for viewing the state of the cluster, like the no longer maintained <a name="openlens">OpenLens</a>, its closed source offspring <a name="lens">Lens</a>, or its FOSS successor <a name="freelens">Freelens</a> (not found in nixpkgs).
 
 ## Exercise 1
 
@@ -210,10 +212,16 @@ This is the common GitOps workflow when working with Terraform -- calling `terra
 
 <sup>[9](#k0s)</sup> https://k0sproject.io
 
-<sup>[10](#helm)</sup> https://helm.sh
+<sup>[10](#lens)</sup> https://k8slens.dev
 
-<sup>[10](#prometheus)</sup> https://prometheus.io
+<sup>[11](#openlens)</sup> https://github.com/MuhammedKalkan/OpenLens
 
-<sup>[10](#grafana)</sup> https://grafana.com
+<sup>[12](#freelens)</sup> https://github.com/freelensapp/freelens
 
-<sup>[10](#terraform)</sup> https://developer.hashicorp.com/terraform
+<sup>[13](#helm)</sup> https://helm.sh
+
+<sup>[14](#prometheus)</sup> https://prometheus.io
+
+<sup>[15](#grafana)</sup> https://grafana.com
+
+<sup>[16](#terraform)</sup> https://developer.hashicorp.com/terraform
