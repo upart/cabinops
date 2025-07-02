@@ -1,6 +1,6 @@
 # Description
 
-Crash Course for <a name="k8s">Kubernetes</a> (K8s). This course assumes you have <a name="docker">Docker</a> installed, but you can also add it via Devbox if not.
+Crash Course for <a name="k8s">Kubernetes</a> (K8s). This course assumes you have <a name="docker">Docker</a> installed and running.
 
 # Setup
 
@@ -63,7 +63,7 @@ The most common way for interfacing with a cluster is `kubectl`. In order to tal
 
 In this course, we will assume you are using `minikube`. If you already used any of them, try another one! Be careful with K3s and K0s, they might come with different Operators or Controllers, requiring more changes to your setup.
 
-K8s uses a declarative approach, meaning you tell it want you want to have (a Manifest), not what you want it to do. The Operator then tries its best to fulfill your requirements. Manifests are written in YAML (or JSON). See `example-pod.yaml` for an example.
+K8s uses a declarative approach, meaning you tell it what you want to have (a Manifest), not what you want it to do. The Operator then tries its best to fulfill your requirements. Manifests are written in YAML (or JSON). See `example-pod.yaml` for an example.
 
 Because it is quite a lot to digest both the infrastructural components of K8s as well as the CLI at once, I suggest using a GUI for viewing the state of the cluster, like the no longer maintained <a name="openlens">OpenLens</a>, its closed source offspring <a name="lens">Lens</a>, or its FOSS successor <a name="freelens">Freelens</a> (not found in nixpkgs).
 
