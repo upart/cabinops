@@ -5,6 +5,7 @@ services:
     depends_on:
       - minio
       - minio-create-bucket
+      - postgres
     ports:
       - 5000:5000
     environment:
@@ -47,3 +48,17 @@ services:
         sleep 5
         /usr/bin/mc alias set dockerminio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
         /usr/bin/mc mb --ignore-existing dockerminio/${S3_BUCKET_NAME}
+  
+  # pip install --no-cache-dir psycopg2-binary && \
+  # --backend-store-uri postgresql://${POSTGRES_USER}:${POSTGRES_PASS}@postgres:5432/${POSTGRES_DB}
+  postgres:
+    image: postgres:14.18
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./app/postgres:/var/lib/postgresql/data
