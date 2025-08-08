@@ -6,7 +6,7 @@ export
 .PHONY: run-mlflow
 run-mlflow:
 	docker stop mlflow || true
-	docker run -it --rm -p 5000:5000 --name mlflow atcommons/mlflow-server:1.20.0
+	docker run --rm -p 5000:5000 --name mlflow ghcr.io/mlflow/mlflow:v2.0.1 mlflow server
 
 .PHONY: run-mlflow-compose
 run-mlflow-compose:
