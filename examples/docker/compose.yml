@@ -1,6 +1,6 @@
 services:
   mlflow:
-    image: atcommons/mlflow-server:1.20.0
+    image: ghcr.io/mlflow/mlflow:v2.0.1
     container_name: mlflow
     depends_on:
       - minio
@@ -13,9 +13,8 @@ services:
       - |
         mlflow server
           --artifacts-destination=s3://minio.internal:9000
-          --serve-artifacts
           --host=0.0.0.0
-          --port=5000
+# --serve-artifacts
 # --backend-store-uri=postgresql://mlflow:$(MLFLOW_DATABASE_PASSWORD)@mlflow-database-postgresql:5432/mlflow
 
   minio:
