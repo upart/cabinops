@@ -5,10 +5,15 @@ S3_BUCKET_NAME=mlflow
 export
 
 .PHONY: run-mlflow
-run-mlflow:
-	docker stop mlflow || true
+run-mlflow: stop-mlflow
 	docker run --rm -p 5000:5000 --name mlflow ghcr.io/mlflow/mlflow:v2.0.1 mlflow server --host 0.0.0.0
 
+stop-mlflow:
+	docker stop mlflow || true
+
 .PHONY: run-mlflow-compose
-run-mlflow-compose:
-	docker compose -f examples/docker/compose.yml up -d --wait
+run-mlflow-compose: stop-mlflow-compose
+	docker compose -f examples/docker/compose.yml up -d --wait minio
+
+stop-mlflow-compose:
+	docker compose -f examples/docker/compose.yml down || true
