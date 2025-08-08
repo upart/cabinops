@@ -17,16 +17,16 @@ stop-mlflow:
 
 .PHONY: run-mlflow-compose
 run-mlflow-compose: stop-mlflow-compose
-	docker compose -f examples/docker/simple-compose.yml up -d --wait minio mlflow
+	docker compose -f examples/docker/simple-docker-compose.yml up -d --wait minio mlflow
 
 .PHONY: stop-mlflow-compose
 stop-mlflow-compose:
-	docker compose -f examples/docker/simple-compose.yml down || true
+	docker compose -f examples/docker/simple-docker-compose.yml down || true
 
 .PHONY: run-mlflow-complex-compose
 run-mlflow-complex-compose:
-	docker compose -f examples/docker/complex-compose.yml up -d --wait minio postgres mlflow
+	docker compose -f examples/docker/complex-docker-compose.yml up -d --wait minio postgres mlflow
 
 .PHONY: stop-mlflow-complex-compose
 stop-mlflow-complex-compose:
-	docker compose -f examples/docker/complex-compose.yml down || true
+	docker compose -f examples/docker/complex-docker-compose.yml down || true
