@@ -1,21 +1,16 @@
 services:
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v2.0.1
+    image: ghcr.io/mlflow/mlflow:v3.2.0
     container_name: mlflow
     depends_on:
       - minio
+      - minio-create-bucket
     ports:
       - 5000:5000
     environment:
       MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
       MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
-    command:
-      - |
-        mlflow server
-          --artifacts-destination=s3://minio.internal:9000
-          --host=0.0.0.0
-# --serve-artifacts
-# --backend-store-uri=postgresql://mlflow:$(MLFLOW_DATABASE_PASSWORD)@mlflow-database-postgresql:5432/mlflow
+    command: mlflow server --host 0.0.0.0 --artifacts-destination s3://${S3_BUCKET_NAME}
 
   minio:
     image: quay.io/minio/minio:RELEASE.2025-07-23T15-54-02Z
@@ -27,7 +22,7 @@ services:
       MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
       MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
     volumes:
-      - $PWD/app/minio:/data
+      - ./app/minio:/data
     command: server /data --console-address ":9001"
 
   minio-create-bucket:
@@ -38,5 +33,6 @@ services:
     entrypoint: ["sh", "-c"]
     command:
       - |
+        sleep 5
         /usr/bin/mc alias set dockerminio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
         /usr/bin/mc mb --ignore-existing dockerminio/${S3_BUCKET_NAME}
