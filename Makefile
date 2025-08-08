@@ -10,4 +10,4 @@ run-mlflow:
 
 .PHONY: run-mlflow-compose
 run-mlflow-compose:
-	docker compose up -f examples/docker/compose.yml -d --wait
+	docker compose -f examples/docker/compose.yml up -d --wait
