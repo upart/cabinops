@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+  namespace: mlflow
+  # labels:
+  #   app: mlflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - image: quay.io/minio/minio:RELEASE.2025-07-23T15-54-02Z
+          name: minio
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          env:
+            - name: MINIO_ROOT_USER
+              value: admin
+            - name: MINIO_ROOT_PASSWORD
+              value: passw0rd
+          command:
+            - minio
+          args:
+            - server
+            - /data
+            - --console-address
+            - ":9001"
+          volumeMounts:
+            - mountPath: /data
+              name: data
+          resources:
+            requests:
+              cpu: "1"
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 512Mi
+        - name: create-bucket
+          image: quay.io/minio/mc:RELEASE.2025-07-21T05-28-08Z
+          command:
+            - sh
+            - -c
+          args:
+            - |
+              sleep 5
+              /usr/bin/mc alias set k8sminio http://localhost:9000 admin passw0rd
+              /usr/bin/mc mb --ignore-existing k8sminio/mlflow
+              tail -f /dev/null
+          resources:
+            requests:
+              cpu: "1"
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 512Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: minio-pvc

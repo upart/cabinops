@@ -60,3 +60,7 @@ example6:
 .PHONY: example7
 example7:
 	kubectl apply -f examples/kubernetes/example7/
+
+.PHONY: example8
+example8:
+	kubectl apply -f examples/kubernetes/example8/
