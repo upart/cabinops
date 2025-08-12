@@ -34,3 +34,17 @@ example3: example3-stop
 .PHONY: example3-stop
 example3-stop:
 	docker compose -f examples/docker/complex-docker-compose.yml down || true
+
+# K8s Example: MLflow Deployment
+.PHONY: cluster
+cluster:
+	minikube start -p mlflow
+
+.PHONY: cluster-rm
+cluster-rm:
+	minikube stop -p mlflow || true
+	minikube delete -p mlflow || true
+
+.PHONY: example4
+example4:	
+	kubectl apply -f examples/kubernetes/deployment/
