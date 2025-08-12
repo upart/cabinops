@@ -27,10 +27,10 @@ example2-stop:
 	docker compose -f examples/docker/simple-docker-compose.yml down || true
 
 # Docker Compose Example: MLflow + minIO + PostgreSQL
-.PHONY: example-3
-example-3: example-3-stop
+.PHONY: example3
+example3: example3-stop
 	docker compose -f examples/docker/complex-docker-compose.yml up -d --wait minio postgres mlflow
 
-.PHONY: example-3-stop
-example-3-stop:
+.PHONY: example3-stop
+example3-stop:
 	docker compose -f examples/docker/complex-docker-compose.yml down || true
