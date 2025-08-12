@@ -46,13 +46,17 @@ cluster-rm:
 	minikube delete -p mlflow || true
 
 .PHONY: example4
-example4:	
+example4:
 	kubectl apply -f examples/kubernetes/example4/
 
 .PHONY: example5
-example5:	
+example5:
 	kubectl apply -f examples/kubernetes/example5/
 
 .PHONY: example6
-example6:	
+example6:
 	kubectl apply -f examples/kubernetes/example6/
+
+.PHONY: example7
+example7:
+	kubectl apply -f examples/kubernetes/example7/

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow
+  namespace: mlflow
+  # labels:
+  #   app: mlflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlflow
+  template:
+    metadata:
+      labels:
+        app: mlflow
+    spec:
+      containers:
+        - image: ghcr.io/mlflow/mlflow:v3.2.0
+          name: mlflow
+          ports:
+            - containerPort: 5000
+          command:
+            - mlflow
+          args:
+            - server
+            - --host=0.0.0.0
+            - --port=5000
+          resources:
+            requests:
+              cpu: "1"
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 512Mi
+          volumeMounts:
+            - mountPath: /mlruns
+              name: mlruns
+      volumes:
+        - name: mlruns
+          persistentVolumeClaim:
+            claimName: mlflow-pvc
