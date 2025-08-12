@@ -8,25 +8,29 @@ POSTGRES_PASS=passw0rd
 POSTGRES_DB=mlflow
 export
 
-.PHONY: run-mlflow
-run-mlflow: stop-mlflow
+# Docker Example: MLflow
+.PHONY: example1
+example1: example1-stop
 	docker run --rm -p 5000:5000 --name mlflow ghcr.io/mlflow/mlflow:v3.2.0 mlflow server --host 0.0.0.0
 
-stop-mlflow:
+example1-stop:
 	docker stop mlflow || true
+	docker rm mlflow || true
 
-.PHONY: run-mlflow-compose
-run-mlflow-compose: stop-mlflow-compose
+# Docker Compose Example: MLflow + minIO
+.PHONY: example2
+example2: example2-stop
 	docker compose -f examples/docker/simple-docker-compose.yml up -d --wait minio mlflow
 
-.PHONY: stop-mlflow-compose
-stop-mlflow-compose:
+.PHONY: example2-stop
+example2-stop:
 	docker compose -f examples/docker/simple-docker-compose.yml down || true
 
-.PHONY: run-mlflow-complex-compose
-run-mlflow-complex-compose:
+# Docker Compose Example: MLflow + minIO + PostgreSQL
+.PHONY: example-3
+example-3: example-3-stop
 	docker compose -f examples/docker/complex-docker-compose.yml up -d --wait minio postgres mlflow
 
-.PHONY: stop-mlflow-complex-compose
-stop-mlflow-complex-compose:
+.PHONY: example-3-stop
+example-3-stop:
 	docker compose -f examples/docker/complex-docker-compose.yml down || true
