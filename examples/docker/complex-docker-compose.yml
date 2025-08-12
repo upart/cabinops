@@ -1,4 +1,5 @@
 services:
+  # Service 1: MLflow – Main App
   mlflow:
     image: ghcr.io/mlflow/mlflow:v3.2.0
     container_name: mlflow
@@ -30,6 +31,7 @@ services:
       timeout: 10s
       retries: 10
 
+  # Service 2: minIO – Artifact Storage
   minio:
     image: quay.io/minio/minio:RELEASE.2025-07-23T15-54-02Z
     container_name: minio
@@ -55,6 +57,7 @@ services:
         /usr/bin/mc alias set dockerminio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
         /usr/bin/mc mb --ignore-existing dockerminio/${S3_BUCKET_NAME}
 
+  # Service 3: PostgreSQL – MLflow Data Structure
   postgres:
     image: postgres:14.18
     container_name: postgres

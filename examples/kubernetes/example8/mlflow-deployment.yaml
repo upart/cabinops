@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow
+  namespace: mlflow
+  # labels:
+  #   app: mlflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlflow
+  template:
+    metadata:
+      labels:
+        app: mlflow
+    spec:
+      containers:
+        - image: ghcr.io/mlflow/mlflow:v3.2.0
+          name: mlflow
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MINIO_ROOT_USER
+              value: admin
+            - name: MINIO_ROOT_PASSWORD
+              value: passw0rd
+          command:
+            - mlflow
+          args:
+            - server
+            - --host=0.0.0.0
+            - --port=5000
+            - --artifacts-destination
+            - s3://minio/mlflow
+          resources:
+            requests:
+              cpu: "1"
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 512Mi
+          volumeMounts:
+            - mountPath: /mlruns
+              name: mlruns
+      volumes:
+        - name: mlruns
+          persistentVolumeClaim:
+            claimName: mlflow-pvc
