@@ -47,4 +47,4 @@ cluster-rm:
 
 .PHONY: example4
 example4:	
-	kubectl apply -f examples/kubernetes/deployment/
+	kubectl apply -f examples/kubernetes/example4/
